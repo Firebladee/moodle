@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe 'git' do
+describe 'moodle::install::git' do
 
   it { should contain_package('git').with_ensure('latest') }
-  it { should contain_file('/var/www/html/moodle/README.txt') }
+#  it { should contain_file('/var/www/html/moodle/config.php') }
 end
