@@ -1,14 +1,11 @@
-
-
-class moodle::web::apache1 (
+class moodle::web::apache (
   $vhost_port    = '80',
   $vhost_docroot = '/var/www/html/moodle',
 
 # $apache_mod = array
 # $php_mod = array
 ){
-
-  class { 'apache': }
+  class { '::apache': }
   apache::vhost {'moodle':
     port    => $vhost_port,
     docroot => $vhost_docroot,
@@ -18,14 +15,16 @@ class moodle::web::apache1 (
     }
   }
   class { 'apache::mod::php':}
-  class { 'apache::mod::ssl':}
+#  class { 'apache::mod::ssl':}
 
-  class {'php':}
-  php::module{'gd':}
-  php::module{'mbstring':}
-  php::module{'xmlrpc':}
-  php::module{'soap':}
-  php::module{'intl':}
-  php::module{'pecl-zendopcache':}
-
+  class {'php':
+    extensions => {
+      gd               => {},
+      mbstring         => {},
+      xmlrpc           => {},
+      soap             => {},
+      intl             => {},
+      pecl-zendopcache => {},
+    }
+  }
 }

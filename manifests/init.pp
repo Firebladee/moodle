@@ -1,6 +1,4 @@
-
 class moodle (
-
   $install  = true,
   $web      = true,
   $database = true,
@@ -25,10 +23,8 @@ class moodle (
   $directorypermissions = '0777',
 
   $dboptions = $moodle::params::dboptions,
-
 ){
-
-#  include moodle::params
+  include moodle::params
 
   if $install {
     class{'moodle::install':

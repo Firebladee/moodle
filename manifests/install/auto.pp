@@ -1,4 +1,3 @@
-
 class moodle::install::auto () inherits moodle::params {
 
   exec{'moodle_auto':

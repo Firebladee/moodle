@@ -1,6 +1,8 @@
-
-class moodle::install::git {
-
+class moodle::install::git (
+  $git_clone_start = 'git clone --depth=1',
+  $git_clone_middle = '-b MOODLE_31_STABLE',
+  $git_clone_end   = 'git://git.moddle.org/moodle.git',
+){
   # package git
   # add case for different os
   package { 'git': ensure => latest, }
@@ -17,7 +19,7 @@ class moodle::install::git {
   # git clone moodle
   # Add your github key from your own puppet module for this to work.
   exec { 'Base clone':
-    command => 'git clone git@github.com:moodle/moodle.git',
+    command => "${git_clone_start} ${git_clone_middle} ${git_clone_end}",
     cwd     => '/var/www/html',
     path    => '/usr/bin',
     timeout => 600,
