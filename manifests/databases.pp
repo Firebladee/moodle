@@ -6,6 +6,7 @@ class moodle::databases (
   if $database != '' {
     case $database {
       mysql:    {
+        package{'epel-release': ensure => installed} ->
         package{'php-pear-MDB2-Driver-mysqli': ensure => installed}
         create_resources('class', $::moodle::params::moodle_mysql)
       }
