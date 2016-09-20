@@ -1,0 +1,72 @@
+{
+  "name": "Firebladee-moodle",
+  "version": "0.4.0",
+  "author": "Firebladee",
+  "summary": "Installs moodle",
+  "license": "Apache-2.0",
+  "source": "https://github.com/Firebladee/moodle",
+  "project_page": "https://github.com/Firebladee/moodle/wiki",
+  "issues_url": "https://github.com/Firebladee/moodle/issues",
+  "tags": ["moodle", "php", "mysql", "postgresql", "apache"],
+  "dependencies": [
+    {
+      "name":"puppetlabs-stdlib",
+      "version_requirement": ">= 4.1.0 < 5.0.0"
+    },
+    {
+      "name":"AlexCline-dirtree",
+      "version_requirement": ">= 0.2.1 < 1.0.0"
+    },
+    {
+      "name":"puppetlabs/apache"
+    },
+    {
+      "name":"maestrodev/wget"
+    },
+    {
+      "name":"puppetlabs/mysql"
+    },
+    {
+      "name":"puppetlabs/concat"
+    },
+    {
+      "name":"mayflower/php"
+    },
+    {
+      "name":"puppetlabs/postgresql"
+    }
+  ],
+  "data_provider": null,
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirements": ">=3.6.0 < 5.0.0"
+    },
+    {
+      "name": "pe",
+      "version_requirements": ">=3.6.0 < 5.0.0"
+    }
+  ]
+}
