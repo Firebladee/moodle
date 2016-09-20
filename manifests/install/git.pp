@@ -1,5 +1,5 @@
 class moodle::install::git (
-  $git_clone_start = 'git clone --depth=1',
+  $git_clone_start  = 'git clone --depth=1',
   $git_clone_middle = '-b MOODLE_31_STABLE',
   $git_clone_end   = 'git://git.moddle.org/moodle.git',
 ){

@@ -1,8 +1,12 @@
 fixtures:
-  repositories:
-    stdlib: "git://github.com/puppetlabs/puppetlabs-stdlib.git"
-    dirtree: "https://github.com/AlexCline/puppet-dirtree"
-    apache: "https://github.com/puppetlabs/puppetlabs-apache"
-    wget: "https://github.com/maestrodev/puppet-wget"
+  forge_modules:
+    stdlib: "puppetlabs/stdlib"
+    dirtree: "AlexCline/dirtree"
+    apache: "puppetlabs/apache"
+    wget: "maestrodev/wget"
+    mysql: "puppetlabs/mysql"
+    concat: "puppetlabs/concat"
+    php: "mayflower/php"
+    postgresql: "puppetlabs/postgresql"
   symlinks:
     moodle: "#{source_dir}"
