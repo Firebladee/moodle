@@ -23,3 +23,7 @@ task :validate do
     sh "erb -P -x -T '-' #{template} | ruby -c"
   end
 end
+
+RuboCop::RakeTask.new do |task|
+  task.requires << 'rubocop-rspec'
+end

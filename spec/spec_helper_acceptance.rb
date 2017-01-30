@@ -1,34 +1,38 @@
 require 'beaker-rspec'
+require 'beaker/puppet_install_helper'
 
-# Install Puppet
-unless ENV['RS_PROVISION'] == 'no'
-  # This will install the latest available package on el and deb based
-  # systems fail on windows and osx, and install via gem on other *nixes
-  foss_opts = { :default_action => 'gem_install' }
+git_repos = [
+  { :mod => 'yumrepo', :repo => 'https://github.com/Firebladee/yumrepos.git' }
+]
 
-  if default.is_pe?; then install_pe; else install_puppet( foss_opts ); end
-
-  hosts.each do |host|
-    on host, "mkdir -p #{host['distmoduledir']}"
-  end
-end
-
-UNSUPPORTED_PLATFORMS = ['RedHat','Suse','windows','AIX','Solaris']
+# Install Puppet on all hosts
+run_puppet_install_helper
 
 RSpec.configure do |c|
-  # Project root
-  proj_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+  module_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 
-  # Readable test descriptions
   c.formatter = :documentation
 
-  # Configure all nodes in nodeset
   c.before :suite do
-    # Install module and dependencies
+
+    # Install module to all hosts
+    puppet_module_install(:source => module_root, :module_name => 'newrelic' )
+
     hosts.each do |host|
-      copy_module_to(host, :source => proj_root, :module_name => 'apt')
-      shell("/bin/touch #{default['puppetpath']}/hiera.yaml")
-      on host, puppet('module install puppetlabs-stdlib --version 2.2.1'), { :acceptable_exit_codes => [0,1] }
+      # Install dependencies
+      on(host, puppet('module', 'install', 'puppetlabs-stdlib'))
+      on(host, puppet('module', 'install', 'puppetlabs-nodejs'))
+      on(host, puppet('module', 'install', 'treydock-gpg_key'))
+      on(host, puppet('module', 'install', 'dsestero/download_uncompress'))
+      on(host, puppet('module', 'install', 'puppetlabs/apt'))
+
+      install_package host, 'git'
+
+      git_repos.each do |g|
+        step "Installing puppet module \'#{g[:repo]}\'"
+        shell("git clone #{g[:repo]} #{default['puppetpath']}/modules/#{g[:mod]}")
+      end
+      # Add more setup code as needed
     end
   end
 end

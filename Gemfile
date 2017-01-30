@@ -18,3 +18,4 @@ gem 'rspec-puppet-facts', :require => false
 gem 'beaker-rspec'
 gem 'beaker'
 gem 'beaker-puppet_install_helper', :require => false
+gem 'rubocop-rspec'

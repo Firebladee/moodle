@@ -1,7 +1,30 @@
 class moodle::install::auto () inherits moodle::params {
 
+  case $::operatingsystem {
+    'Ubuntu': {
+      case $::operatingsystemrelease {
+        '16.04': {
+          $group = 'root'
+          case $::moodle::web {
+            true:
+              {
+                $require = [Class['Apache::Mod::Php'], Class['Apache::Service']]
+                case $::moodle::install {
+                  true: { $require1 = Class['moodle::install'] }
+                  default: { $require1 = undef }
+                }
+              }
+            default: {}
+            }
+          }
+        default: { $group = 'apache'}
+        }
+      }
+    default: { $require = undef }
+  }
+
   exec{'moodle_auto':
-    command => "/usr/bin/php admin/cli/install.php \
+    command => "/usr/bin/php /var/www/html/moodle/admin/cli/install.php \
       --dbtype=mysqli \
       --dbname=moodledb \
       --dbuser=fred \
@@ -16,6 +39,7 @@ class moodle::install::auto () inherits moodle::params {
       --shortname=testsite",
     creates => '/var/www/html/moodle/config.php',
     cwd     => '/var/www/html/moodle',
-    group   => 'apache',
+    group   => $group,
+    require => [$require, $require1],
   }
 }

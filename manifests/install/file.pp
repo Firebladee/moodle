@@ -1,5 +1,4 @@
 class moodle::install::file (
-#  $download    = 'http://downloads.sourceforge.net/project/moodle/Moodle/stable27/moodle-2.7.tgz?r=http%3A%2F%2Fdownload.moodle.org%2Fdownload.php%2Fstable27%2Fmoodle-2.7.tgz&ts=1400159836&use_mirror=heanet',
 
   $download    = 'https://download.moodle.org/download.php/direct/stable31/moodle-latest-31.tgz',
   $destination = '/tmp/moodle.tgz',
@@ -25,8 +24,19 @@ class moodle::install::file (
     refreshonly => true,
   }
 
+  case $::operatingsystem {
+    'Ubuntu': {
+      $owner = 'www-data'
+      $group = 'www-data'
+    }
+    default: {
+      $owner = 'apache'
+      $group = 'apache'
+    }
+  }
+
   file{"${cwd}/moodle":
-    owner => 'apache',
-    group => 'apache',
+    owner => $owner,
+    group => $group,
   }
 }

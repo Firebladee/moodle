@@ -1,5 +1,3 @@
-
-
 class moodle::databases::postgresql {
 
   class {'postgresql::server':}

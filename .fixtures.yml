@@ -1,12 +1,13 @@
 fixtures:
   forge_modules:
-    stdlib: "puppetlabs/stdlib"
-    dirtree: "AlexCline/dirtree"
-    apache: "puppetlabs/apache"
-    wget: "maestrodev/wget"
-    mysql: "puppetlabs/mysql"
-    concat: "puppetlabs/concat"
-    php: "mayflower/php"
+    stdlib:     "puppetlabs/stdlib"
+    dirtree:    "AlexCline/dirtree"
+    apache:     "puppetlabs/apache"
+    wget:       "maestrodev/wget"
+    mysql:      "puppetlabs/mysql"
+    concat:     "puppetlabs/concat"
+    php:        "mayflower/php"
     postgresql: "puppetlabs/postgresql"
+    apt:        "puppetlabs/apt"
   symlinks:
     moodle: "#{source_dir}"

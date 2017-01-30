@@ -5,16 +5,29 @@ class moodle::web::apache (
 # $apache_mod = array
 # $php_mod = array
 ){
-  class { '::apache': }
+
+  case $::operatingsystem {
+    'Ubuntu': {
+      $mpm = 'prefork'
+      package{'software-properties-common':}
+    }
+    default: { $mpm = undef }
+  }
+
+  class { '::apache':
+    mpm_module => $mpm,
+  }
   apache::vhost {'moodle':
     port    => $vhost_port,
     docroot => $vhost_docroot,
     aliases => {
       alias => '/mymoodle',
       path  => '/var/www/html/moodle',
-    }
+    },
   }
+
   class { 'apache::mod::php':}
+
 #  class { 'apache::mod::ssl':}
 
   class {'php':
@@ -24,7 +37,10 @@ class moodle::web::apache (
       xmlrpc           => {},
       soap             => {},
       intl             => {},
-      pecl-zendopcache => {},
+    #  pecl-zendopcache => {}, # done to test ubuntu 14.04
+      mysql            => {},
+      curl             => {},
+      zip              => {}
     }
   }
 }

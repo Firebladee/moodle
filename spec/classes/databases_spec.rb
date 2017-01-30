@@ -16,13 +16,13 @@ describe 'moodle::databases' do
           :mysql => {
             'mysql::server' => {
               'users' => {
-                "${::moodle::db_user}@localhost" => {
+                "fred@localhost" => {
                   'ensure'        => 'present',
                   'password_hash' => '*185D87D3277588C7D8ABF3D1F2D3AA89B1D73416',
                 }
               },
               'grants' => {
-                "${::moodle::db_user}@localhost/${::moodle::db_name}.*" => {
+                "fred@localhost/moodledb.*" => {
                   'ensure'     => 'present',
                   'options'    => ['GRANT'],
                   'privileges' => [
@@ -36,12 +36,12 @@ describe 'moodle::databases' do
                     'INDEX',
                     'ALTER',
                   ],
-                  'table'      => "${::moodle::db_name}.*",
-                  'user'       => "${::moodle::db_user}@localhost",
+                  'table'      => "moodledb.*",
+                  'user'       => "fred@localhost",
                 }
               },
               'databases' => {
-                "${::moodle::db_name}" => {
+                "moodledb" => {
                   'ensure'  => 'present',
                   'charset' => 'utf8',
                   'collate' => 'utf8_unicode_ci',
