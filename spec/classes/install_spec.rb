@@ -1,13 +1,12 @@
 require 'spec_helper'
 
 describe 'moodle::install' do
-
   it { is_expected.to have_resource_count(2)}
   it { is_expected.to have_class_count(1)}
 
   describe 'install => git' do
     let(:params) {{
-      :install => 'git'
+      install: 'git'
     }}
 
     it { is_expected.to contain_class('moodle::install::git')}
@@ -15,7 +14,7 @@ describe 'moodle::install' do
 
   describe 'install => file' do
     let(:params) {{
-      :install => 'file'
+      install: 'file'
     }}
 
     it { is_expected.to contain_class('moodle::install::file')}
@@ -23,7 +22,7 @@ describe 'moodle::install' do
 
   describe 'install => web' do
     let(:params) {{
-      :install => 'web'
+      install: 'web'
     }}
 
     it { is_expected.to contain_class('moodle::install::web')}
@@ -31,7 +30,7 @@ describe 'moodle::install' do
 
   describe 'install => cvs' do
     let(:params) {{
-      :install => 'cvs'
+      install: 'cvs'
     }}
 
     it { is_expected.to contain_class('moodle::install::cvs')}
@@ -39,7 +38,7 @@ describe 'moodle::install' do
 
   describe 'install => auto' do
     let(:params) {{
-      :install => 'auto'
+      install: 'auto'
     }}
 
     it { is_expected.to contain_class('moodle::install::auto')}
@@ -48,9 +47,9 @@ describe 'moodle::install' do
   it { is_expected.to contain_notify('Build type  not yet known')}
 
   it { is_expected.to contain_file('/opt/moodle').with(
-    :ensure => 'directory',
-    :mode   => '0755',
-    :owner  => 'apache',
-    :group  => 'apache',
+    ensure: 'directory',
+    mode:   '0755',
+    owner:  'apache',
+    group:  'apache',
   )}
 end

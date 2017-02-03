@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe 'moodle::web::apache' do
   let(:facts) {{
-    :osfamily => 'RedHat',
-    :operatingsystemrelease => '7',
+    osfamily: 'RedHat',
+    operatingsystemrelease: '7',
   }}
 
   it { is_expected.to have_resource_count(217)}
@@ -11,17 +11,18 @@ describe 'moodle::web::apache' do
 
   it { is_expected.to contain_class('apache')}
   it { is_expected.to contain_apache__vhost('moodle').with(
-    :port    => '80',
-    :docroot => '/var/www/html/moodle',
-    :aliases => {
+    port:    '80',
+    docroot: '/var/www/html/moodle',
+    aliases: {
       'alias' => '/mymoodle',
-      'path'  => '/var/www/html/moodle', }
+      'path'  => '/var/www/html/moodle',
+    }
   )}
 
   it { is_expected.to contain_class('apache::mod::php')}
 
   it { is_expected.to contain_class('php').with(
-    :extensions =>
+    extensions:
       {
         'gd'               => {},
         'mbstring'         => {},

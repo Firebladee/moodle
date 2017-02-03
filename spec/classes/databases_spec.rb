@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'moodle::databases' do
-
   it { is_expected.to have_resource_count(0)}
   it { is_expected.to have_class_count(1)}
 
@@ -12,17 +11,17 @@ describe 'moodle::databases' do
           facts
         end
         let(:params) {{
-          :database => 'mysql',
-          :mysql => {
+          database: 'mysql',
+          mysql: {
             'mysql::server' => {
               'users' => {
-                "fred@localhost" => {
+                'fred@localhost' => {
                   'ensure'        => 'present',
                   'password_hash' => '*185D87D3277588C7D8ABF3D1F2D3AA89B1D73416',
                 }
               },
               'grants' => {
-                "fred@localhost/moodledb.*" => {
+                'fred@localhost/moodledb.*' => {
                   'ensure'     => 'present',
                   'options'    => ['GRANT'],
                   'privileges' => [
@@ -36,12 +35,12 @@ describe 'moodle::databases' do
                     'INDEX',
                     'ALTER',
                   ],
-                  'table'      => "moodledb.*",
-                  'user'       => "fred@localhost",
+                  'table'      => 'moodledb.*',
+                  'user'       => 'fred@localhost',
                 }
               },
               'databases' => {
-                "moodledb" => {
+                'moodledb' => {
                   'ensure'  => 'present',
                   'charset' => 'utf8',
                   'collate' => 'utf8_unicode_ci',
@@ -75,23 +74,23 @@ describe 'moodle::databases' do
           facts
         end
         let(:params) {{
-          :database => 'postgresql',
+          database: 'postgresql',
         }}
 
         case facts[:osfamily]
         when 'RedHat'
           case facts[:operatingsystemrelease]
           when '6'
-            it { is_expected.to have_resource_count(68)}
+            it { is_expected.to have_resource_count(68) }
           when '7'
-            it { is_expected.to have resource_count(65)}
+            it { is_expected.to have resource_count(65) }
           end
         else
-          it { is_expected.to have_resource_count(63)}
+          it { is_expected.to have_resource_count(63) }
         end
-        it { is_expected.to have_class_count(12)}
+        it { is_expected.to have_class_count(12) }
 
-        it { is_expected.to contain_class('moodle::databases::postgresql')}
+        it { is_expected.to contain_class('moodle::databases::postgresql') }
       end
     end
   end

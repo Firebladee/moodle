@@ -14,8 +14,8 @@ gem 'librarian-puppet'
 gem 'metadata-json-lint'
 gem 'simplecov'
 gem 'coveralls'
-gem 'rspec-puppet-facts', :require => false
+gem 'rspec-puppet-facts', require: false
 gem 'beaker-rspec'
 gem 'beaker'
-gem 'beaker-puppet_install_helper', :require => false
+gem 'beaker-puppet_install_helper', require: false
 gem 'rubocop-rspec'

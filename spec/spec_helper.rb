@@ -4,4 +4,8 @@ require 'rspec-puppet-facts'
 
 include RspecPuppetFacts
 
+RSpec.configure do |config|
+  config.formatter = :documentation
+end
+
 Coveralls.wear!
